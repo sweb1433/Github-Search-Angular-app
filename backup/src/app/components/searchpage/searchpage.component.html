@@ -1,0 +1,138 @@
+<div class="container">
+     <div class="row">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+               <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                         <h3>Search With Github</h3>
+                    </li>
+               </ul>
+               <br>
+               <div class="tab-content">
+                    <form class="" [formGroup]="searchform" (ngSubmit)="searchUser()">
+                         <div class="tab-pane fade show active" id="pills-login" role="tabpanel"
+                              aria-labelledby="tab-login">
+                              <div class="input-group mb-3">
+                                   <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">@</span>
+                                   </div>
+                                   <input type="text" class="form-control" formControlName="username"
+                                        placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-block mb-4"
+                                   [disabled]="!this.searchform.valid">Search</button>
+                         </div>
+                    </form>
+               </div>
+
+               <div class="text-center" *ngIf="userDetail">
+                    <h2>Search Results</h2>
+
+                    <div class="main-card">
+                         <div class="card" style="width: 18rem;">
+                              <img class="card-img-top" src={{userDetail?.avatar_url}} alt="Card image cap">
+                              <div class="card-body">
+                                   <h5 class="card-title">{{userDetail?.name}}</h5>
+                                   <!-- <h6 class="card-title"></h6> -->
+                                   <p class="card-text">Bio: {{userDetail?.bio}}</p>
+                              </div>
+                              <ul class="list-group list-group-flush">
+                                   <li class="list-group-item">
+                                        <h6>Username : {{userDetail?.login}}</h6>
+                                   </li>
+                                   <li class="list-group-item">Repos: {{userDetail?.public_repos}}  <a  class="btn btn-primary" href= "https://github.com/{{userDetail?.login}}?tab=repositories" target="_blank" role="button"> View</a></li>
+                                   <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+                              </ul>
+                              <div class="card-body">
+                                   <button class="btn  btn-outline-primary" (click)="open(content)">More Details</button>
+
+                                   <!-- <a href="#" class="card-link">Card link</a> -->
+                                   <!-- <a href="#" class="card-link" data-toggle="modal" >Another link</a> -->
+                              </div>
+                         </div>
+                    </div>
+
+               </div> 
+
+          </div>
+          <div class="col-lg-3"></div>
+
+     </div>
+
+
+     <ng-template #content let-modal>
+          <div class="modal-header">
+               <h4 class="modal-title" id="modal-basic-title">User Details</h4>
+               <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+          </div>
+          <div class="modal-body">
+               <form>
+                    <div class="mb-3">
+                         <ul class="list-group list-group-flush">
+                              <li class="list-group-item" *ngIf="userDetail.blog">
+                                   <div>
+                                        <label for="blog">Blog: </label>
+                                        <a id="blog" class="btn btn-primary" href={{userDetail.blog}} target="_blank" role="button"> View</a>
+                                        
+                                   </div>
+                              </li>
+                              <li class="list-group-item" *ngIf="userDetail?.email">
+                                   <div >
+                                        <label for="email">Email: </label>
+                                        <h4>{{userDetail?.email}}</h4>
+                                        
+                                   </div>
+                              </li>
+                              <li class="list-group-item" *ngIf="userDetail.html_url">
+                                   <div >
+                                        <label for="profile">Profile: </label>
+                                        <a id="profile" class="btn btn-primary" href={{userDetail.html_url}} target="_blank" role="button"> View</a>
+                                        
+                                   </div>
+                              </li>
+                              <li class="list-group-item" *ngIf="userDetail.created_at">
+                                   <div >
+                                        <label for="created">Created at: </label>
+                                        <span id="created">{{userDetail.created_at | date: 'dd/MM/yyyy'}}</span>                                        
+                                   </div>
+                              </li>
+                              <li class="list-group-item" *ngIf="userDetail.location">
+                                   <div >
+                                        <label for="location">location : </label>
+                                        <span id="location">{{userDetail.location}}</span>                                        
+                                   </div>
+                              </li>
+                              <li class="list-group-item" *ngIf="userDetail.followers">
+                                   <div >
+                                        <label for="followers">followers : </label>
+                                        <span id="followers">{{userDetail.followers}}</span> 
+                                        <a id="profile" class="btn btn-primary" href={{userDetail.followers_url}} target="_blank" role="button"> View</a>
+                                       
+                                   </div>
+                              </li>
+                              <li class="list-group-item" *ngIf="userDetail.following">
+                                   <div >
+                                        <label for="following">following : </label>
+                                        <span id="following">{{userDetail.following}}</span>  
+                                        <a id="profile" class="btn btn-primary" href={{userDetail.following_url}} target="_blank" role="button"> View</a>
+                                      
+                                   </div>
+                              </li>
+
+                              <li class="list-group-item" *ngIf="userDetail.gists_url">
+                                   <div >
+                                        <label for="gists_url">Gist : </label>
+                                        <!-- <span id="gists_url">{{userDetail.following}}</span>   -->
+                                        <a id="profile" class="btn btn-primary" href={{userDetail.gists_url}} target="_blank" role="button"> View</a>
+                                      
+                                   </div>
+                              </li>
+                         </ul>
+                    </div>
+               </form>
+          </div>
+     </ng-template>
+     
+     
+
+     
